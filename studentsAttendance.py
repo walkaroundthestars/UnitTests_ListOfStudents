@@ -35,6 +35,7 @@ def add_student(students_list, file_path, name):
         students_list[name] = True
         file.write(name + ",")
     print("Student został dodany pomyślnie")
+    return students_list
 
 def remove_student(file_path, students_list, name):
     if name in students_list:
@@ -67,9 +68,8 @@ def check_students(students_list):
             students_list[student] = False
 
 
-def edit_students(students_list, name):
-    obecnosc = input("Czy był obecny? T/N: ")
-    if obecnosc.upper() == 'T':
+def edit_students(students_list, name, attendance):
+    if attendance.upper() == 'T':
         students_list.update({name : True})
     else:
         students_list.update({name : False})
@@ -91,7 +91,8 @@ def main():
             check_students(students_list)
         elif wybor == '4':
             name = input("Podaj imię studenta: ")
-            edit_students(students_list, name)
+            attendance = input("Czy był obecny? T/N: ")
+            edit_students(students_list, name, attendance)
         elif wybor == '5':
             name = input("Podaj imię i nazwisko studenta do usunięcia: ")
             remove_student(file_path, students_list, name)

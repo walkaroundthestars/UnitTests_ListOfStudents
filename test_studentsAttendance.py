@@ -1,64 +1,77 @@
 import pytest
 
-from unittest.mock import patch, mock_open
 from studentsAttendance import import_students, add_student, remove_student, export_students, check_students, edit_students
 
 
-# Test funkcji import_students
-def test_import_students(self):
+def test_import_students():
     #want
-    want = {"Jan Kowalski": True, "Maria Antonina": True, "Stanisław Dziąsło": True}
+    filePath = 'Students_test.txt'
+    want = {"Jan Kowalski": True, "Agata Malinowska": True}
     #got
-    result = import_students("students.txt")
+    result = import_students(filePath)
     #when
     assert result == want
 
-# Test funkcji add_student
-def test_add_student(self):
+def test_add_student():
     #want
-    studentName = "Agnieszka Kowalska"
+    name = "Agnieszka Kowalska"
     students = {}
     filePath = "students.txt"
     #got
-    students = add_student(studentName, filePath)
+    students = add_student(students, filePath, name)
     #when
+    assert name in students
+
+def test_remove_student():
+    #want
+    name = "Agnieszka Kowalska"
+    filePath = "students.txt"
+    students = import_students(filePath)
+    #got
+    remove_student(filePath,students, name)
+    #when
+    assert name not in students
+
+def test_export_students():
+    #want
+    file_path = 'studentsAttendanceTest.txt'
+    students = {"Agnieszka Kowalska": True, "Janko Muzykant": False}
+
+    #got
+    export_students("studentsAttendanceTest.txt", students)
+    with open(file_path, "r") as file:
+        studentsFile = file.read()
+
+    #when
+    assert "Agnieszka Kowalska" in studentsFile
+    assert "Janko Muzykant" in studentsFile
 
 
-# Test funkcji remove_student
-def test_remove_student(self):
-    pass
-
-
-# Test funkcji export_students
-def test_export_students(monkeypatch):
-    m = mock_open()
-    monkeypatch.setattr("builtins.open", m)
-
-    students = {"Jan Kowalski": True, "Maria Nowak": False}
-    export_students("studentsAttendance.txt", students)
-
-    m().write.assert_any_call("Jan Kowalski                   - obecny\n")
-    m().write.assert_any_call("Maria Nowak                    - nieobecny\n")
-
-
-# Test funkcji check_students
 def test_check_students(monkeypatch):
+    #want
     inputs = iter(["T", "N"])
     monkeypatch.setattr("builtins.input", lambda _: next(inputs))
 
+    #got
     students = {"Jan Kowalski": False, "Maria Nowak": False}
     check_students(students)
-
+    #when
     assert students["Jan Kowalski"] is True
     assert students["Maria Nowak"] is False
 
 
-# Test funkcji edit_students
 def test_edit_students(monkeypatch):
+
+    #want
     inputs = iter(["Jan Kowalski", "T"])
     monkeypatch.setattr("builtins.input", lambda _: next(inputs))
 
-    students = {"Jan Kowalski": False}
-    edit_students(students)
+    name = "Jan Kowalski"
+    students = {name : False}
+    attendance = "T"
 
-    assert students["Jan Kowalski"] is True
+    #got
+    edit_students(students, name, attendance)
+
+    #when
+    assert students["Jan Kowalski"] == True
