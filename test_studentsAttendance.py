@@ -1,5 +1,4 @@
 import pytest
-
 from studentsAttendance import import_students, add_student, remove_student, export_students, check_students, edit_students
 
 
@@ -47,24 +46,19 @@ def test_export_students():
     assert "Janko Muzykant" in studentsFile
 
 
-def test_check_students(monkeypatch):
-    #want
-    inputs = iter(["T", "N"])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
+def test_check_students():
 
-    #got
+    #want
     students = {"Jan Kowalski": False, "Maria Nowak": False}
-    check_students(students)
+    #got
+    check_students(students, "Jan Kowalski", "t")
+    check_students(students, "Maria Nowak", "n")
     #when
     assert students["Jan Kowalski"] is True
     assert students["Maria Nowak"] is False
 
 
-def test_edit_students(monkeypatch):
-
-    #want
-    inputs = iter(["Jan Kowalski", "T"])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
+def test_edit_students():
 
     name = "Jan Kowalski"
     students = {name : False}

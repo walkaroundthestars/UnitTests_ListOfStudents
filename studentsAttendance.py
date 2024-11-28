@@ -1,5 +1,6 @@
 from datetime import datetime
 from idlelib.editor import keynames
+from itertools import count
 from pkgutil import get_data
 
 def menu():
@@ -25,6 +26,10 @@ def import_students(file_path, students_list=None):
                 for student in students:
                     if student != "":
                         students_list[student] = True
+                    elif student == "":
+                        pass
+                    elif student.count(" ") == 0:
+                        print("Zły format studenta!")
             print("Lista studentów zaimportowana pomyślnie.")
     except FileNotFoundError:
         print("Plik nie istnieje. Zaczynamy z pustą listą.")
@@ -32,8 +37,11 @@ def import_students(file_path, students_list=None):
 
 def add_student(students_list, file_path, name):
     with open(file_path, "a") as file:
-        students_list[name] = True
-        file.write(name + ",")
+        if name.count(" ") == 0:
+            print("Zły format studenta!")
+        else:
+            students_list[name] = True
+            file.write(name + ",")
     print("Student został dodany pomyślnie")
     return students_list
 
@@ -58,22 +66,23 @@ def export_students(file_path2, students_list):
     print("Lista studentów zapisana pomyślnie.")
 
 
-def check_students(students_list):
-    for student in students_list:
-        print(f"czy {student} jest obecny? ")
-        obecnosc = input("T/N: ")
-        if obecnosc.upper() == 'T':
-            students_list[student] = True
+def check_students(students_list, name, attendance):
+
+        if attendance.upper() == 'T':
+            students_list[name] = True
+        elif attendance.upper() == 'N':
+            students_list[name] = False
         else:
-            students_list[student] = False
+            raise Exception("Nieprawidłowa obecność. Edytuj póżniej.")
 
 
 def edit_students(students_list, name, attendance):
     if attendance.upper() == 'T':
         students_list.update({name : True})
-    else:
+    elif attendance.upper() == 'N':
         students_list.update({name : False})
-
+    else:
+        raise Exception("Nieprawidłowa obecność.")
 
 def main():
     file_path = 'students.txt'
@@ -88,7 +97,10 @@ def main():
             name = input("Podaj imię i nazwisko studenta do dodania: ")
             add_student(students_list, file_path, name)
         elif wybor == '3':
-            check_students(students_list)
+            for student in students_list:
+                print(f"czy {student} jest obecny? ")
+                attendance = input("T/N: ")
+                check_students(students_list, student, attendance)
         elif wybor == '4':
             name = input("Podaj imię studenta: ")
             attendance = input("Czy był obecny? T/N: ")
