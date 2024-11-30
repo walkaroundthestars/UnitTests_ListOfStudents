@@ -10,7 +10,6 @@ def test_import_students():
     result = import_students(filePath)
     #when
     assert result == want
-    os.remove(filePath)
 
 def test_add_student():
     #want

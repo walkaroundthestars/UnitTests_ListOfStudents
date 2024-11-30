@@ -25,7 +25,7 @@ def import_students(file_path, students_list=None):
                 students = line.strip().split(',')
                 for student in students:
                     if student != "":
-                        students_list[student] = True
+                        students_list[student.strip()] = True
                     elif student == "":
                         pass
                     elif student.count(" ") == 0:
@@ -40,7 +40,7 @@ def add_student(students_list, file_path, name):
         if name.count(" ") == 0:
             print("Zły format studenta!")
         else:
-            students_list[name] = True
+            students_list[name.strip()] = True
             file.write(name + ",")
     print("Student został dodany pomyślnie")
     return students_list
