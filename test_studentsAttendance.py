@@ -1,4 +1,4 @@
-import pytest
+import pytest, os
 from studentsAttendance import import_students, add_student, remove_student, export_students, check_students, edit_students
 
 
@@ -10,6 +10,7 @@ def test_import_students():
     result = import_students(filePath)
     #when
     assert result == want
+    os.remove(filePath)
 
 def test_add_student():
     #want
@@ -27,7 +28,7 @@ def test_remove_student():
     filePath = "students.txt"
     students = import_students(filePath)
     #got
-    remove_student(filePath,students, name)
+    remove_student(filePath, students, name)
     #when
     assert name not in students
 
@@ -44,6 +45,8 @@ def test_export_students():
     #when
     assert "Agnieszka Kowalska" in studentsFile
     assert "Janko Muzykant" in studentsFile
+
+    os.remove(file_path)
 
 
 def test_check_students():
