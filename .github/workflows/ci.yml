@@ -37,13 +37,15 @@ jobs:
 
     permissions:
       contents: write
-      packages: write
+      pull-requests: write
       issues: write
       statuses: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Lint with super-linter
         uses: actions/cache@v3

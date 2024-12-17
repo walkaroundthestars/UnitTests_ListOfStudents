@@ -78,6 +78,7 @@ def check_students(students_list, name, attendance):
         raise Exception("Nieprawidłowa obecność. Edytuj póżniej.")
 
 
+# TODO: and another todo
 def edit_students(students_list, name, attendance):
     if attendance.upper() == "T":
         students_list.update({name: True})
