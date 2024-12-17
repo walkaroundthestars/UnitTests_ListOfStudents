@@ -34,8 +34,8 @@ jobs:
     runs-on: "ubuntu-latest"
 
     permissions:
-      contents: read
-      packages: read
+      contents: write
+      packages: write
       issues: write
       statuses: write
 
