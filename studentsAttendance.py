@@ -68,9 +68,9 @@ def export_students(file_path2, students_list):
 
 
 def check_students(students_list, name, attendance):
-    if attendance.upper() == 'T':
+    if attendance.upper() == "T":
         students_list[name] = True
-    elif attendance.upper() == 'N':
+    elif attendance.upper() == "N":
         students_list[name] = False
     else:
         raise Exception("Nieprawidłowa obecność. Edytuj póżniej.")
