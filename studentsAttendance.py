@@ -55,7 +55,7 @@ def remove_student(file_path, students_list, name):
             file.write(student + ",")
     print("Student został usunięty")
 
-
+# TODO: checking if TODO is working correctly
 def export_students(file_path2, students_list):
     with open(file_path2, "a") as file:
         file.write(str(datetime.now()) + "\n")
