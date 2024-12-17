@@ -31,7 +31,7 @@ jobs:
           pip install pytest pytest-cov
 
       - name: Run tests
-        run: pytest -vv --cov=studentsAttendance.py
+        run: pytest -vv --cov=studentsAttendance
   lint:
     needs: test
     runs-on: "ubuntu-latest"
