@@ -1,47 +1,56 @@
 import pytest, os
-from studentsAttendance import import_students, add_student, remove_student, export_students, check_students, edit_students
+from studentsAttendance import (
+    import_students,
+    add_student,
+    remove_student,
+    export_students,
+    check_students,
+    edit_students)
 
 
 def test_import_students():
-    #want
-    filePath = 'Students_test.txt'
+    # want
+    filePath = "Students_test.txt"
     want = {"Jan Kowalski": True, "Agata Malinowska": True}
-    #got
+    # got
     result = import_students(filePath)
-    #when
+    # when
     assert result == want
 
+
 def test_add_student():
-    #want
+    # want
     name = "Agnieszka Kowalska"
     students = {}
     filePath = "students.txt"
-    #got
+    # got
     students = add_student(students, filePath, name)
-    #when
+    # when
     assert name in students
 
+
 def test_remove_student():
-    #want
+    # want
     name = "Agnieszka Kowalska"
     filePath = "students.txt"
     students = import_students(filePath)
-    #got
+    # got
     remove_student(filePath, students, name)
-    #when
+    # when
     assert name not in students
 
+
 def test_export_students():
-    #want
-    file_path = 'studentsAttendanceTest.txt'
+    # want
+    file_path = "studentsAttendanceTest.txt"
     students = {"Agnieszka Kowalska": True, "Janko Muzykant": False}
 
-    #got
+    # got
     export_students("studentsAttendanceTest.txt", students)
     with open(file_path, "r") as file:
         studentsFile = file.read()
 
-    #when
+    # when
     assert "Agnieszka Kowalska" in studentsFile
     assert "Janko Muzykant" in studentsFile
 
@@ -49,21 +58,19 @@ def test_export_students():
 
 
 def test_check_students():
-
-    #want
+    # want
     students = {"Jan Kowalski": False, "Maria Nowak": False}
-    #got
+    # got
     check_students(students, "Jan Kowalski", "t")
     check_students(students, "Maria Nowak", "n")
-    #when
+    # when
     assert students["Jan Kowalski"] is True
     assert students["Maria Nowak"] is False
 
 
 def test_edit_students():
-
     name = "Jan Kowalski"
-    students = {name : False}
+    students = {name: False}
     attendance = "T"
 
     #got
