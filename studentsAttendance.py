@@ -68,6 +68,7 @@ def export_students(file_path2, students_list):
     print("Lista studentów zapisana pomyślnie.")
 
 
+# TODO: another todo
 def check_students(students_list, name, attendance):
     if attendance.upper() == "T":
         students_list[name] = True
