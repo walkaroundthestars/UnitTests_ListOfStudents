@@ -51,7 +51,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-super-linter-
       - name: Super-Linter
-        uses: super-linter/super-linter/slim@v7.1.0
+        uses: github/super-linter@v5
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
