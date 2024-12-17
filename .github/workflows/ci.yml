@@ -36,6 +36,7 @@ jobs:
     permissions:
       contents: read
       packages: read
+      issues: write
       statuses: write
 
     steps:
@@ -57,6 +58,7 @@ jobs:
           CACHE_DIR: .cache/super-linter
 
   todo-to-issue:
+    needs: linter
     runs-on: "ubuntu-latest"
     steps:
       - uses: "actions/checkout@v4"
