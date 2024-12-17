@@ -1,7 +1,4 @@
 from datetime import datetime
-from idlelib.editor import keynames
-from itertools import count
-from pkgutil import get_data
 
 
 def menu():
@@ -63,7 +60,7 @@ def export_students(file_path2, students_list):
     with open(file_path2, "a") as file:
         file.write(str(datetime.now()) + "\n")
         for student, attendance in students_list.items():
-            if attendance == True:
+            if attendance:
                 file.write(f"{student:30} - obecny\n")
             else:
                 file.write(f"{student:30} - nieobecny\n")
@@ -71,27 +68,26 @@ def export_students(file_path2, students_list):
 
 
 def check_students(students_list, name, attendance):
-
-        if attendance.upper() == 'T':
-            students_list[name] = True
-        elif attendance.upper() == 'N':
-            students_list[name] = False
-        else:
-            raise Exception("Nieprawidłowa obecność. Edytuj póżniej.")
+    if attendance.upper() == 'T':
+        students_list[name] = True
+    elif attendance.upper() == 'N':
+        students_list[name] = False
+    else:
+        raise Exception("Nieprawidłowa obecność. Edytuj póżniej.")
 
 
 def edit_students(students_list, name, attendance):
-    if attendance.upper() == 'T':
-        students_list.update({name : True})
-    elif attendance.upper() == 'N':
-        students_list.update({name : False})
+    if attendance.upper() == "T":
+        students_list.update({name: True})
+    elif attendance.upper() == "N":
+        students_list.update({name: False})
     else:
         raise Exception("Nieprawidłowa obecność.")
 
 
 def main():
-    file_path = 'students.txt'
-    file_path2 = 'studentsAttendance.txt'
+    file_path = "students.txt"
+    file_path2 = "studentsAttendance.txt"
     students_list = {}
 
     while True:

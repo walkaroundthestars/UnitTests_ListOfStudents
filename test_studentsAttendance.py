@@ -1,11 +1,13 @@
-import pytest, os
+import os
+
 from studentsAttendance import (
-    import_students,
     add_student,
-    remove_student,
-    export_students,
     check_students,
-    edit_students)
+    edit_students,
+    export_students,
+    import_students,
+    remove_student,
+)
 
 
 def test_import_students():
@@ -73,8 +75,8 @@ def test_edit_students():
     students = {name: False}
     attendance = "T"
 
-    #got
+    # got
     edit_students(students, name, attendance)
 
-    #when
-    assert students["Jan Kowalski"] == True
+    # when
+    assert students["Jan Kowalski"] is True
